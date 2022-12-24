@@ -7,8 +7,8 @@ const tripRoute=express.Router()
 
 tripRoute.get("/hotel",async (req, res) => {
     try {
-        const page = parseInt(req.query.page);
-        const size = parseInt(req.query.size);
+        const page = parseInt(req.query.page) || 1;
+        const size = parseInt(req.query.size) || 8;
         const sort= req.query.price
         const skip = (page -1) * size;
         
@@ -43,7 +43,7 @@ tripRoute.get("/hotel",async (req, res) => {
 
 tripRoute.get("/hotel/:id",async(req,res)=>{
 
-    
+
     try{
        const trip = await TripModel.findById({_id: req.params.id})
        res.status(200).json(trip)
